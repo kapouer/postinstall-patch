@@ -5,7 +5,7 @@ module.exports = function(inputs, output, options) {
 		return exec(`patch --backup --forward --strip 0 --quiet --reject-file - <${output}`, {
 			cwd: input
 		}).catch(function(err) {
-			if (err.stdout && !err.stdout.indexOf('ignored')) console.log(err.stdout);
+			if (err.stdout && (err.stdout.indexOf('File to patch') > 0 || !err.stdout.indexOf('ignored'))) console.log(err.stdout);
 			if (err.stderr) console.error(err.stderr);
 		});
 	}));
